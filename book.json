@@ -1,0 +1,8 @@
+{
+   "gitbook": ">=2.0.0",
+   "title": "Documentation of Aurora",
+   "plugins" : [
+      "expandable-chapters",
+      "comments"
+   ]
+}
