@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Cez Composer | Documentation of Aurora</title>
+        <title>Presenter | Documentation of Aurora</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -29,10 +29,10 @@
         
     
     
-    <link rel="next" href="../../pages/Installation/Git.html" />
+    <link rel="next" href="../../pages/MVC/Controller-API.html" />
     
     
-    <link rel="prev" href="../../pages/Installation.html" />
+    <link rel="prev" href="../../pages/MVC/Controller-or-Presenter.html" />
     
 
         
@@ -40,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="1.1" data-basepath="../.." data-revision="Sun Jul 26 2015 14:00:39 GMT+0200 (Central Europe Summer Time)">
+    <div class="book" data-level="2.2" data-basepath="../.." data-revision="Sun Jul 26 2015 14:00:39 GMT+0200 (Central Europe Summer Time)">
     
 
 <div class="book-summary">
@@ -86,7 +86,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.1" data-path="pages/Installation/Composer.html">
+        <li class="chapter " data-level="1.1" data-path="pages/Installation/Composer.html">
             
                 
                     <a href="../../pages/Installation/Composer.html">
@@ -152,7 +152,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="pages/MVC/Presenter-API.html">
+        <li class="chapter active" data-level="2.2" data-path="pages/MVC/Presenter-API.html">
             
                 
                     <a href="../../pages/MVC/Presenter-API.html">
@@ -452,53 +452,38 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h3 id="composer-cez-cli">Composer cez CLI</h3>
-<p>V&#x161;etky pr&#xED;kazy vkladajte do konzoly, pri&#x10D;om sa r&#xE1;ta s t&#xFD;m, &#x17E;e composer,
-je dostupn&#xFD; glob&#xE1;lne cez konzolu.</p>
-<h4 id="so-%C5%A1trukt%C3%BArou">So &#x161;trukt&#xFA;rou</h4>
-<p>In&#x161;talova&#x165; Auroru je mo&#x17E;n&#xE9; nieko&#x13E;k&#xFD;mi sp&#xF4;sobmi, jedn&#xFD;m z nich je in&#x161;tal&#xE1;cia cez composer, ktor&#xE1;
-je r&#xFD;chla a ve&#x13E;mi jednoduch&#xE1; je vhodn&#xE1; pre okam&#x17E;it&#xE9; nahodenie aplik&#xE1;cie do behu.</p>
-<pre><code class="lang-terminal">composer create-project aurora-framework/app <Názov Aplikácie="">
-</Názov></code></pre>
-<h4 id="bez-%C5%A1trukt%C3%BAry">Bez &#x161;trukt&#xFA;ry</h4>
-<p>Pre tento sp&#xF4;sob sta&#x10D;&#xED; do konzole zada&#x165; pr&#xED;kaz:</p>
-<pre><code class="lang-terminal">composer require &quot;aurora-framework/aurora: ~1.0&quot;
+                        <h1 id="controller">Controller</h1>
+<h2 id="modely">Modely</h2>
+<p>Pri pracovan&#xED; s modelmi nezabudni&#x165;e nastavi&#x165; aj pripojenie na datab&#xE1;zu.</p>
+<h3 id="prid%C3%A1vanie-modelov">Prid&#xE1;vanie modelov</h3>
+<p>Prida&#x165; model alebo modely mo&#x17E;eme cez pole alebo cez metodu na <code>Model</code>.
+V Controlleri pristupujeme k vytv&#xE1;raniu modelov n&#xE1;sledovne:</p>
+<p>Pre jeden model:</p>
+<pre><code class="lang-php"><span class="hljs-variable">$this</span>-&gt;createModel(<span class="hljs-string">&quot;App\\Model\\Article&quot;</span>, <span class="hljs-string">&quot;Article&quot;</span>);
 </code></pre>
-<p>N&#xE1;sledne je mo&#x17E;n&#xE9; upravi&#x165; <code>composer.json</code>, pridan&#xED;m autoloadingu, pre aplik&#xE1;ciu.
-Napr&#xED;klad:</p>
-<pre><code class="lang-json">{
-   <span class="hljs-regexp">/... Zvy&#x161;ok composeru - Nekop&#xED;rova&#x165; .../</span>
-   <span class="hljs-string">&quot;autoload&quot;</span>: {
-      <span class="hljs-string">&quot;psr-4&quot;</span>: {
-         <span class="hljs-string">&quot;App\\&quot;</span>: <span class="hljs-string">&quot;App//&quot;</span>
-      }
-   }
-}
+<p>Pre pole modelov:</p>
+<pre><code class="lang-php"><span class="hljs-variable">$this</span>-&gt;Model-&gt;createFromList([
+   <span class="hljs-string">&quot;Article&quot;</span> =&gt; <span class="hljs-string">&quot;App\\Model\\Article&quot;</span>
+]);
 </code></pre>
-<p>Posledn&#xFD;m a teda aj fin&#xE1;lnym pr&#xED;kazom je:</p>
-<pre><code>composer install
-</code></pre><p>Tento pr&#xED;kaz nain&#x161;taluje v&#x161;etky sub-kni&#x17E;nice aplik&#xE1;cie, PS: Neviem &#x10D;i si stihnete d&#xF4;js&#x165; po k&#xE1;vi&#x10D;ku, je to r&#xFD;chle.</p>
-<h3 id="composer-cez-json-bez-%C5%A1trukt%C3%BAry">Composer cez json bez &#x161;trukt&#xFA;ry</h3>
-<p>Pri tomto sp&#xF4;sobe je nutn&#xE9; vytvori&#x165; s&#xFA;bor, s n&#xE1;zvom <code>composer.json</code> tento s&#xFA;bor mus&#xED; obsahova&#x165; nasleduj&#xFA;ci obsah:</p>
-<pre><code class="lang-json">{
-   <span class="hljs-string">&quot;require&quot;</span>: {
-      <span class="hljs-string">&quot;aurora-framework/aurora&quot;</span>: <span class="hljs-string">&quot;~1.0&quot;</span>
-   }
-}
+<h3 id="volanie-modelov">Volanie Modelov</h3>
+<p>Pre z&#xED;skanie modelu pou&#x17E;&#xED;vame pr&#xED;stup na triedu:</p>
+<pre><code class="lang-php"><span class="hljs-variable">$Article</span> = <span class="hljs-variable">$this</span>-&gt;Model-&gt;Article-&gt;get(<span class="hljs-number">5</span>);
 </code></pre>
-<p>N&#xE1;sledne m&#xF4;&#x17E;eme prida&#x165; autoloading:</p>
-<pre><code class="lang-json">{
-   <span class="hljs-regexp">/... Zvy&#x161;ok composeru - Nekop&#xED;rova&#x165; .../</span>
-   <span class="hljs-string">&quot;autoload&quot;</span>: {
-      <span class="hljs-string">&quot;psr-4&quot;</span>: {
-         <span class="hljs-string">&quot;App\\&quot;</span>: <span class="hljs-string">&quot;App//&quot;</span>
-      }
-   }
-}
+<h2 id="cookies">Cookies</h2>
+<h3 id="pre-vytvorenie-cookies">Pre vytvorenie cookies:</h3>
+<pre><code class="lang-php"><span class="hljs-variable">$this</span>-&gt;createCookie(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>);
 </code></pre>
-<p>Posledn&#xFD;m a teda aj fin&#xE1;lnym pr&#xED;kazom je:</p>
-<pre><code>composer install
-</code></pre><p>Tento pr&#xED;kaz nain&#x161;taluje v&#x161;etky sub-kni&#x17E;nice aplik&#xE1;cie, PS: Neviem &#x10D;i si stihnete d&#xF4;js&#x165; po k&#xE1;vi&#x10D;ku, je to r&#xFD;chle.</p>
+<h3 id="z%C3%ADskanie-cookie">Z&#xED;skanie cookie</h3>
+<pre><code class="lang-php"><span class="hljs-keyword">echo</span> <span class="hljs-variable">$this</span>-&gt;getCookie(<span class="hljs-string">&quot;test&quot;</span>);
+</code></pre>
+<h3 id="odstr%C3%A1nenie-cookie">Odstr&#xE1;nenie Cookie</h3>
+<pre><code class="lang-php"><span class="hljs-variable">$this</span>-&gt;removeCookie(<span class="hljs-string">&quot;test&quot;</span>);
+</code></pre>
+<h2 id="sessions">Sessions</h2>
+<p>S&#xFA; dostupn&#xE9; cez premmen&#xFA; <code>Session</code>, ktor&#xE1; mus&#xED; by&#x165; nastaven&#xE1; cez
+setter injection.</p>
+<p>Dokument&#xE1;ciu n&#xE1;jdete pri Sessions.</p>
 
                     
                     </section>
@@ -509,10 +494,10 @@ Napr&#xED;klad:</p>
         </div>
 
         
-        <a href="../../pages/Installation.html" class="navigation navigation-prev " aria-label="Previous page: Inštalácia"><i class="fa fa-angle-left"></i></a>
+        <a href="../../pages/MVC/Controller-or-Presenter.html" class="navigation navigation-prev " aria-label="Previous page: Presenter alebo Controller"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../pages/Installation/Git.html" class="navigation navigation-next " aria-label="Next page: Cez Git"><i class="fa fa-angle-right"></i></a>
+        <a href="../../pages/MVC/Controller-API.html" class="navigation navigation-next " aria-label="Next page: Controller"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
